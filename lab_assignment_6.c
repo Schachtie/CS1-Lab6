@@ -2,7 +2,26 @@
 
 int search(int numbers[], int low, int high, int value) 
 {
-	return -1;
+	//Check if last recursive step has been reached
+	if (low == high)
+	{
+		return -1;
+	}
+	//Find middle index
+	int searchIndex = (low + high) / 2;
+	
+	//Check for value found
+	if (numbers[searchIndex] == value)
+	{
+		return searchIndex;
+	}
+	//If not found, call recursion with new bounds based on whether current array value is > or < value
+	if (numbers[searchIndex] > value)
+	{
+		return search(numbers, low, searchIndex, value);
+	}
+	//Uses (searchIndex + 1) to compensate for when low/high are +- 1 of each other (avoids infinite recursion)
+	return search(numbers, searchIndex + 1, high, value);
 }
 
 void printArray(int numbers[], int sz)
